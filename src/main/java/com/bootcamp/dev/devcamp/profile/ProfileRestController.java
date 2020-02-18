@@ -2,8 +2,8 @@ package com.bootcamp.dev.devcamp.profile;
 
 import com.bootcamp.dev.devcamp.model.SuccessResponse;
 import com.bootcamp.dev.devcamp.profile.model.ProfileBody;
+import com.bootcamp.dev.devcamp.profile.model.Token;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @RestController
 @RequestMapping(("/api/profile"))
 public class ProfileRestController {
@@ -25,5 +24,10 @@ public class ProfileRestController {
         return profileService.createProfile(profileBody);
     }
 
+    @PostMapping("/login")
+    public Mono<Token> login(@RequestBody ProfileBody profileBody) {
+        return profileService.login(profileBody);
+    }
 
 }
+
