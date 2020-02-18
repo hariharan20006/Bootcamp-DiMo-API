@@ -1,6 +1,6 @@
 package com.bootcamp.dev.devcamp.controller;
 
-import com.bootcamp.dev.devcamp.model.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.profile.ProfileValidator;
 import org.junit.jupiter.api.Test;
 
