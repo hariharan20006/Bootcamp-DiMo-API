@@ -1,6 +1,6 @@
 package com.bootcamp.dev.devcamp.profile;
 
-import com.bootcamp.dev.devcamp.model.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 
 public class ProfileValidator {

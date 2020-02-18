@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.model;
+package com.bootcamp.dev.devcamp.model.link;
 
 
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
-package com.bootcamp.dev.devcamp.profile;
+package com.bootcamp.dev.devcamp.controller;
 
 
-import com.bootcamp.dev.devcamp.model.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
 import com.bootcamp.dev.devcamp.response.SuccessResponse;
