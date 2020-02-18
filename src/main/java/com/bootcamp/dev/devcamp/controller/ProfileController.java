@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(("/api/profile"))
+@RequestMapping("/api/profile")
 @CrossOrigin
 public class ProfileController {
 

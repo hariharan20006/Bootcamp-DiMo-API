@@ -4,7 +4,6 @@ package com.bootcamp.dev.devcamp.controller;
 import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
-import com.bootcamp.dev.devcamp.controller.ProfileController;
 import com.bootcamp.dev.devcamp.response.ClientError;
 import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import com.bootcamp.dev.devcamp.service.ProfileService;
