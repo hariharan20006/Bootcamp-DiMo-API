@@ -1,6 +1,5 @@
-package com.bootcamp.dev.devcamp.link;
+package com.bootcamp.dev.devcamp.response;
 
-import com.bootcamp.dev.devcamp.model.ClientError;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;

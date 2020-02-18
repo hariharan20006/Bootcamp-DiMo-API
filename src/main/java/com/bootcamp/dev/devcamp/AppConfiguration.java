@@ -1,6 +1,6 @@
 package com.bootcamp.dev.devcamp;
 
-import com.bootcamp.dev.devcamp.link.ClientErrorExceptionHandler;
+import com.bootcamp.dev.devcamp.response.ClientErrorExceptionHandler;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
