@@ -1,12 +1,16 @@
 package com.bootcamp.dev.devcamp.link;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@Data
 public class ErrorRepresentation {
     private Error error;
-
-    public ErrorRepresentation(String message, ErrorCode errorCode) {
-        this.error = new Error(message, errorCode);
-    }
 }
