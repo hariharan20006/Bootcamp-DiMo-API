@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.link;
+package com.bootcamp.dev.devcamp.response;
 
 
 public enum ErrorCode {
@@ -10,5 +10,4 @@ public enum ErrorCode {
     ErrorCode(int value) {
         this.value = value;
     }
-
 }

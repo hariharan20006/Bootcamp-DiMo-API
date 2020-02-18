@@ -1,11 +1,11 @@
-package com.bootcamp.dev.devcamp.profile;
+package com.bootcamp.dev.devcamp.service;
 
-import com.bootcamp.dev.devcamp.model.ClientError;
-import com.bootcamp.dev.devcamp.model.SuccessResponse;
-import com.bootcamp.dev.devcamp.profile.document.Profile;
-import com.bootcamp.dev.devcamp.profile.model.ProfileBody;
-import com.bootcamp.dev.devcamp.profile.model.Token;
-import com.bootcamp.dev.devcamp.profile.repository.ProfileRepository;
+import com.bootcamp.dev.devcamp.response.ClientError;
+import com.bootcamp.dev.devcamp.response.SuccessResponse;
+import com.bootcamp.dev.devcamp.model.profile.Profile;
+import com.bootcamp.dev.devcamp.model.link.ProfileBody;
+import com.bootcamp.dev.devcamp.model.link.Token;
+import com.bootcamp.dev.devcamp.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +13,6 @@ public class ProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
-
 
     public Mono<SuccessResponse> createProfile(ProfileBody profileBody) {
 

@@ -1,9 +1,10 @@
-package com.bootcamp.dev.devcamp.profile;
+package com.bootcamp.dev.devcamp.controller;
 
-import com.bootcamp.dev.devcamp.model.ClientError;
-import com.bootcamp.dev.devcamp.model.SuccessResponse;
-import com.bootcamp.dev.devcamp.profile.model.ProfileBody;
-import com.bootcamp.dev.devcamp.profile.model.Token;
+import com.bootcamp.dev.devcamp.model.link.ProfileBody;
+import com.bootcamp.dev.devcamp.model.link.Token;
+import com.bootcamp.dev.devcamp.response.ClientError;
+import com.bootcamp.dev.devcamp.response.SuccessResponse;
+import com.bootcamp.dev.devcamp.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,7 +18,7 @@ public class ProfileControllerTest {
 
     private ProfileService service;
 
-    private ProfileRestController profileController;
+    private ProfileController profileController;
 
     private ProfileBody createBody;
     private Token loginToken;
@@ -25,7 +26,7 @@ public class ProfileControllerTest {
     @BeforeEach
     public void setup() {
         service = Mockito.mock(ProfileService.class);
-        profileController = new ProfileRestController(service);
+        profileController = new ProfileController(service);
         createBody = new ProfileBody(
                 "joel@onlytest.com", "password"
         );
@@ -65,9 +66,7 @@ public class ProfileControllerTest {
     public void loginAccountWithMatchingEmailAndPassword() {
         Mockito.when(service.login(createBody)).thenReturn(Mono.just(loginToken));
         StepVerifier.create(profileController.login(createBody))
-                .assertNext(token -> {
-                    assertEquals("SOME_TOKEN_VALUE", token.getToken());
-                })
+                .assertNext(token -> assertEquals("SOME_TOKEN_VALUE", token.getToken()))
                 .expectComplete()
                 .verify();
 
@@ -80,12 +79,7 @@ public class ProfileControllerTest {
         Mockito.when(service.login(createBody)).thenReturn(expectedError);
 
         StepVerifier.create(profileController.login(createBody))
-                .consumeErrorWith(error -> {
-                    assertEquals(ClientError.badCredentials(), error);
-                })
+                .consumeErrorWith(error -> assertEquals(ClientError.badCredentials(), error))
                 .verify();
-
     }
-
-
 }

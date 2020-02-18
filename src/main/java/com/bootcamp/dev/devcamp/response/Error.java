@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.link;
+package com.bootcamp.dev.devcamp.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

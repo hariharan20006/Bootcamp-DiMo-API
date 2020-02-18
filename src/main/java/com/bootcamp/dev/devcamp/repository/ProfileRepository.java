@@ -1,6 +1,6 @@
-package com.bootcamp.dev.devcamp.profile.repository;
+package com.bootcamp.dev.devcamp.repository;
 
-import com.bootcamp.dev.devcamp.profile.document.Profile;
+import com.bootcamp.dev.devcamp.model.profile.Profile;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 
@@ -9,5 +9,4 @@ public interface ProfileRepository extends ReactiveMongoRepository<Profile, Stri
     Mono<Profile> findByEmailId(String emailId);
 
     Mono<Profile> findByEmailIdAndPassword(String emailId, String password);
-
 }

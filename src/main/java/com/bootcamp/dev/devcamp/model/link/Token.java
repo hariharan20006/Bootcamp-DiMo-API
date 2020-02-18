@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.profile.model;
+package com.bootcamp.dev.devcamp.model.link;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

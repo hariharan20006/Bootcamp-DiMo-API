@@ -1,9 +1,6 @@
-package com.bootcamp.dev.devcamp.model;
+package com.bootcamp.dev.devcamp.response;
 
 
-import com.bootcamp.dev.devcamp.link.Error;
-import com.bootcamp.dev.devcamp.link.ErrorCode;
-import com.bootcamp.dev.devcamp.link.ErrorRepresentation;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -41,6 +38,5 @@ public class ClientError extends Throwable {
             return false;
         }
         return ((ClientError) obj).httpStatus == this.httpStatus;
-
     }
 }
