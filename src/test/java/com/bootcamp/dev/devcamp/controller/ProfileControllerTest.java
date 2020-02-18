@@ -1,7 +1,10 @@
 package com.bootcamp.dev.devcamp.controller;
 
-import com.bootcamp.dev.devcamp.model.link.ProfileBody;
+
+import com.bootcamp.dev.devcamp.model.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
+import com.bootcamp.dev.devcamp.profile.ProfileController;
 import com.bootcamp.dev.devcamp.response.ClientError;
 import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import com.bootcamp.dev.devcamp.service.ProfileService;
@@ -20,16 +23,15 @@ public class ProfileControllerTest {
 
     private ProfileController profileController;
 
-    private ProfileBody createBody;
+    private CreateProfile createBody;
+    private ProfileLogin loginBody;
     private Token loginToken;
 
     @BeforeEach
     public void setup() {
         service = Mockito.mock(ProfileService.class);
         profileController = new ProfileController(service);
-        createBody = new ProfileBody(
-                "joel@onlytest.com", "password"
-        );
+
         loginToken = new Token("SOME_TOKEN_VALUE");
     }
 
@@ -43,7 +45,9 @@ public class ProfileControllerTest {
 
     @Test
     public void createAccountWithEmptyEmail() {
-        createBody.setEmailId(null);
+        createBody = new CreateProfile(
+                "joel@onlytest.com", "Ja_1ohve", "John", "Doe"
+        );
         Mono<SuccessResponse> expectedError = Mono.error(ClientError.invalidBody());
         Mockito.when(service.createProfile(createBody)).thenReturn(expectedError);
         Mono<SuccessResponse> response = profileController.createAccount(createBody);
@@ -52,7 +56,9 @@ public class ProfileControllerTest {
 
     @Test
     public void createAccountWithBlankEmail() {
-        createBody.setEmailId("");
+        createBody = new CreateProfile(
+                "", "", "John", "Doe"
+        );
         Mono<SuccessResponse> expectedError = Mono.error(ClientError.invalidBody());
         Mockito.when(service.createProfile(createBody)).thenReturn(expectedError);
 
@@ -64,9 +70,14 @@ public class ProfileControllerTest {
 
     @Test
     public void loginAccountWithMatchingEmailAndPassword() {
-        Mockito.when(service.login(createBody)).thenReturn(Mono.just(loginToken));
-        StepVerifier.create(profileController.login(createBody))
-                .assertNext(token -> assertEquals("SOME_TOKEN_VALUE", token.getToken()))
+        loginBody = new ProfileLogin("joel@onlytest.com", "Ja_1ohve");
+
+        Mockito.when(service.login(loginBody)).thenReturn(Mono.just(loginToken));
+
+        StepVerifier.create(profileController.login(loginBody))
+                .assertNext(token -> {
+                    assertEquals("SOME_TOKEN_VALUE", token.getToken());
+                })
                 .expectComplete()
                 .verify();
 
@@ -74,12 +85,19 @@ public class ProfileControllerTest {
 
     @Test
     public void loginAccountWithMatchingEmailAndMismatchedPassword() {
+        loginBody = new ProfileLogin("joel@onlytest.com", "Ja_");
+
         Mono<Token> expectedError = Mono.error(ClientError.badCredentials());
 
-        Mockito.when(service.login(createBody)).thenReturn(expectedError);
+        Mockito.when(service.login(loginBody)).thenReturn(expectedError);
 
-        StepVerifier.create(profileController.login(createBody))
-                .consumeErrorWith(error -> assertEquals(ClientError.badCredentials(), error))
+        StepVerifier.create(profileController.login(loginBody))
+                .consumeErrorWith(error -> {
+                    assertEquals(ClientError.badCredentials(), error);
+                })
                 .verify();
+
     }
+
+
 }

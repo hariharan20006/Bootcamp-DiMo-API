@@ -1,8 +1,10 @@
-package com.bootcamp.dev.devcamp.controller;
+package com.bootcamp.dev.devcamp.profile;
 
-import com.bootcamp.dev.devcamp.response.SuccessResponse;
-import com.bootcamp.dev.devcamp.model.link.ProfileBody;
+
+import com.bootcamp.dev.devcamp.model.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
+import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import com.bootcamp.dev.devcamp.service.ProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,14 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping("/create")
-    public Mono<SuccessResponse> createAccount(@RequestBody ProfileBody profileBody) {
+    public Mono<SuccessResponse> createAccount(@RequestBody CreateProfile profileBody) {
         return profileService.createProfile(profileBody);
     }
 
     @PostMapping("/login")
-    public Mono<Token> login(@RequestBody ProfileBody profileBody) {
+    public Mono<Token> login(@RequestBody ProfileLogin profileBody) {
         return profileService.login(profileBody);
     }
+
 }
 

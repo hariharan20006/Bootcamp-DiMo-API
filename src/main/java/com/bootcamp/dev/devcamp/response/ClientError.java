@@ -29,7 +29,7 @@ public class ClientError extends Throwable {
     }
 
     public static ClientError badCredentials() {
-        return new ClientError(HttpStatus.BAD_REQUEST, new ErrorRepresentation(new Error(ErrorCode.INVALID_REQUEST_BODY, USER_ALREADY_EXISTS)));
+        return new ClientError(HttpStatus.BAD_REQUEST, new ErrorRepresentation(new Error(ErrorCode.INVALID_CREDENTIALS, BAD_CREDENTIALS)));
     }
 
     @Override
