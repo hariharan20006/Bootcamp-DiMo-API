@@ -21,14 +21,14 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-    public Mono<SuccessResponse> createProfile(CreateProfile profileBody) {
+    public Mono<Token> createProfile(CreateProfile profileBody) {
         if (ProfileValidator.isCreateProfileValid(profileBody)) {
             Profile profile = new Profile(profileBody.getEmailId(), PlainTextEncryptor.encrypt(profileBody.getPassword()), profileBody.getFirstName(), profileBody.getLastName());
             return profileRepository.findByEmailId(profile.getEmailId())
                     .flatMap(existingUser ->
                             Mono.error(ClientError.userAlreadyExists()))
                     .then(profileRepository.save(profile).map(__ -> {
-                        return SuccessResponse.justSuccess();
+                        return new Token(profile.getUuid());
                     }));
         } else {
             return Mono.error(ClientError.invalidBody());

@@ -36,9 +36,9 @@ public class ProfileControllerTest {
 
     @Test
     public void createAccount() {
-        Mono<SuccessResponse> expected = Mono.just(SuccessResponse.justSuccess());
+        Mono<Token> expected = Mono.just(loginToken);
         Mockito.when(service.createProfile(createBody)).thenReturn(expected);
-        Mono<SuccessResponse> response = profileController.createAccount(createBody);
+        Mono<Token> response = profileController.createAccount(createBody);
         assertEquals(expected, response);
     }
 
@@ -47,9 +47,9 @@ public class ProfileControllerTest {
         createBody = new CreateProfile(
                 "joel@onlytest.com", "Ja_1ohve", "John", "Doe"
         );
-        Mono<SuccessResponse> expectedError = Mono.error(ClientError.invalidBody());
+        Mono<Token> expectedError = Mono.error(ClientError.invalidBody());
         Mockito.when(service.createProfile(createBody)).thenReturn(expectedError);
-        Mono<SuccessResponse> response = profileController.createAccount(createBody);
+        Mono<Token> response = profileController.createAccount(createBody);
         assertEquals(expectedError, response);
     }
 
@@ -58,10 +58,10 @@ public class ProfileControllerTest {
         createBody = new CreateProfile(
                 "", "", "John", "Doe"
         );
-        Mono<SuccessResponse> expectedError = Mono.error(ClientError.invalidBody());
+        Mono<Token> expectedError = Mono.error(ClientError.invalidBody());
         Mockito.when(service.createProfile(createBody)).thenReturn(expectedError);
 
-        Mono<SuccessResponse> response = profileController.createAccount(createBody);
+        Mono<Token> response = profileController.createAccount(createBody);
 
         StepVerifier.create(response).expectErrorMatches(throwable ->
                 throwable instanceof ClientError).verify();

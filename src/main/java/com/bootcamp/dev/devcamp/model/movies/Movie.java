@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Language;
 
 import java.security.PrivateKey;
 import java.util.List;
+import java.util.Map;
 
 public class Movie {
 
@@ -39,6 +40,9 @@ public class Movie {
 
     @Field("production_companies")
     private List<ProductionCompany> productionCompanies;
+
+    @Field("production_countries")
+    private List<Map<String, String>> productionCountries;
 
     @Field("release_date")
     private String releaseDate;

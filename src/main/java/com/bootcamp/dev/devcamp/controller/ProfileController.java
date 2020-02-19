@@ -21,7 +21,7 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping("/create")
-    public Mono<SuccessResponse> createAccount(@RequestBody CreateProfile profileBody) {
+    public Mono<Token> createAccount(@RequestBody CreateProfile profileBody) {
         return profileService.createProfile(profileBody);
     }
 
