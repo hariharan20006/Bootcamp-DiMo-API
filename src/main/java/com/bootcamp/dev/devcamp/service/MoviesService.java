@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -23,9 +25,16 @@ public class MoviesService {
     @Autowired
     private MoviesRepository moviesRepository;
 
-    public Flux<Movie> getMovies() {
-        return moviesRepository.findAll();
-//        return moviesRepository.findById(movieID);
+    public List<Movie> getMovies(Map<String, String> q) {
+
+        Query query = new Query();
+
+
+        for (String key : q.keySet()) {
+            query.addCriteria(Criteria.where(key).regex(q.get(key), "i"));
+        }
+
+        return mongoTemplate.find(query, Movie.class);
     }
 
     public Movie getMovieByID(Integer movieID) {

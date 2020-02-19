@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -18,14 +19,16 @@ public class MoviesController {
     @Autowired
     private MoviesService moviesService;
 
-    @GetMapping("/")
-    public Flux<Movie> getMovies( ) {
-        return moviesService.getMovies();
+    @GetMapping("")
+    public List<Movie> getMovies(
+            @RequestParam Map<String, String> reqParam
+    ) {
+
+        return moviesService.getMovies(reqParam);
     }
 
     @GetMapping("/{movieID}")
     public Movie getMovieByID(@PathVariable Integer movieID ) {
-        System.out.println("************** " + movieID);
         return moviesService.getMovieByID(movieID);
     }
 

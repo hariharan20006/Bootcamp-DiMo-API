@@ -1,6 +1,7 @@
 package com.bootcamp.dev.devcamp.model.movies;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document
+@Data
 public class ProductionCompany {
 
     //{\"name\": \"Ingenious Film Partners\", \"id\": 289}
@@ -19,19 +21,4 @@ public class ProductionCompany {
     @Field("id")
     private Integer id;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

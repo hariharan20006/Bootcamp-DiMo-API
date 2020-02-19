@@ -1,6 +1,7 @@
 package com.bootcamp.dev.devcamp.model.movies;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
+@Data
 public class Language {
     @Field("iso_639_1")
     private String iso6391;
@@ -16,11 +18,4 @@ public class Language {
     @Field("name")
     private String name;
 
-    public String getIso_639_1() {
-        return iso6391;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

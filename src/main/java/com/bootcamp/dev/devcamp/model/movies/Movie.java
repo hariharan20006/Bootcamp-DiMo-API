@@ -1,10 +1,12 @@
 package com.bootcamp.dev.devcamp.model.movies;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
+@Data
 @Document(collection = "movies")
 public class Movie {
 
@@ -14,15 +16,11 @@ public class Movie {
     @Field("genres")
     private List<Genre> genres;
 
-//    @Id
-//    @Field("_id")
-//    private String id;
+
 
     @Field("id")
     private String id;
 
-//    @Id
-//    private String _id;
 
     @Field("homepage")
     private String homepage;
@@ -63,7 +61,7 @@ public class Movie {
     @Field("status")
     private String status;
 
-    @Field("tagLine")
+    @Field("tagline")
     private String tagLine;
 
     @Field("title")
@@ -75,85 +73,11 @@ public class Movie {
     @Field("vote_count")
     private double voteCount;
 
-
-    public long getBudget() {
-        return budget;
+    public String getPosterUrl() {
+        return posterUrl;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-//    public int getId() {
-//        return id;
-//    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public List<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public double getPopularity() {
-        return popularity;
-    }
-
-    public List<ProductionCompany> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public List<ProductionCountry> getProductionCountries() {
-        return productionCountries;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public long getRevenue() {
-        return revenue;
-    }
-
-    public int getRuntime() {
-        return runtime;
-    }
-
-    public List<Language> getLanguages() {
-        return languages;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getTagLine() {
-        return tagLine;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public double getVoteAverage() {
-        return voteAverage;
-    }
-
-    public double getVoteCount() {
-        return voteCount;
-    }
+    @Field("movie_poster_url")
+    private String posterUrl;
 
 }
