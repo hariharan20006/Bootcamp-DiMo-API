@@ -21,11 +21,9 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-
     public Mono<SuccessResponse> createProfile(CreateProfile profileBody) {
-
         if (ProfileValidator.isCreateProfileValid(profileBody)) {
-            Profile profile = new Profile(profileBody.getEmailId(), profileBody.getPassword(), profileBody.getFirstName(), profileBody.getLastName());
+            Profile profile = new Profile(profileBody.getEmailId(), PlainTextEncryptor.encrypt(profileBody.getPassword()), profileBody.getFirstName(), profileBody.getLastName());
             return profileRepository.findByEmailId(profile.getEmailId())
                     .flatMap(existingUser ->
                             Mono.error(ClientError.userAlreadyExists()))
@@ -38,14 +36,21 @@ public class ProfileService {
     }
 
     public Mono<Token> login(ProfileLogin profileBody) {
+
         if (ProfileValidator.isLoginCredentialsValid(profileBody)) {
             Profile profile = new Profile(profileBody.getEmailId(), profileBody.getPassword());
             Token response = new Token();
-            return profileRepository.findByEmailIdAndPassword(profile.getEmailId(), profile.getPassword())
+            return profileRepository.findByEmailId(profile.getEmailId())
                     .map(existingUser -> {
-                        response.setToken(existingUser.getUuid());
-                        return response;
-                    }).switchIfEmpty(Mono.error(ClientError.badCredentials()));
+                        if (PlainTextEncryptor.isPasswordValid(profileBody.getPassword(), existingUser.getPassword())) {
+                            response.setToken(existingUser.getUuid());
+                            return response;
+                        }
+                        throw new RuntimeException();
+                    }).onErrorMap(error -> {
+                        return ClientError.badCredentials();
+                    })
+                    .switchIfEmpty(Mono.error(ClientError.badCredentials()));
         } else {
             return Mono.error(ClientError.invalidBody());
         }
