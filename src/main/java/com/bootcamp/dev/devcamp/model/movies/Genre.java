@@ -19,5 +19,4 @@ public class Genre {
     @Field("name")
     private String name;
 
-
 }

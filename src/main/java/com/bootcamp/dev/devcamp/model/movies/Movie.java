@@ -16,11 +16,8 @@ public class Movie {
     @Field("genres")
     private List<Genre> genres;
 
-
-
     @Field("id")
     private String id;
-
 
     @Field("homepage")
     private String homepage;
@@ -72,10 +69,6 @@ public class Movie {
 
     @Field("vote_count")
     private Double voteCount;
-
-    public String getPosterUrl() {
-        return posterUrl;
-    }
 
     @Field("movie_poster_url")
     private String posterUrl;

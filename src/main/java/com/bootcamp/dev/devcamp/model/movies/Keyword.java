@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document
 @Data
 public class Keyword {
-    // {\"id\": 1463, \"name\": \"culture clash\"}
 
     @Field("id")
     private Integer id;

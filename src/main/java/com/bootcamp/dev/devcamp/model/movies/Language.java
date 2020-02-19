@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document
 @Data
 public class Language {
+    
     @Field("iso_639_1")
     private String iso6391;
 

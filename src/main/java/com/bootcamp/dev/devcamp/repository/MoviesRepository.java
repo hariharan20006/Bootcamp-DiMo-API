@@ -10,6 +10,5 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface MoviesRepository extends ReactiveMongoRepository<Movie, String> {
-    Mono<Movie> findByTitle(String title);
-//    Mono<Movie> findById(Integer id);
+
 }

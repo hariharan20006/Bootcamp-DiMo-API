@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document
 @Data
 public class ProductionCountry {
-    // {\"id\": 28, \"name\": \"Action\"}
 
     @Field("iso_3166_1")
     private String iso31661;

@@ -13,8 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Data
 public class ProductionCompany {
 
-    //{\"name\": \"Ingenious Film Partners\", \"id\": 289}
-
     @Field("name")
     private String name;
 

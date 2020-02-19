@@ -2,6 +2,7 @@ package com.bootcamp.dev.devcamp.service;
 
 import com.bootcamp.dev.devcamp.model.movies.Movie;
 import com.bootcamp.dev.devcamp.repository.MoviesRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
@@ -16,14 +17,11 @@ import java.util.Map;
 
 
 @Service
+@AllArgsConstructor
 public class MoviesService {
 
     @Autowired
     MongoTemplate mongoTemplate;
-
-
-    @Autowired
-    private MoviesRepository moviesRepository;
 
     public List<Movie> getMovies(Map<String, String> q) {
 
