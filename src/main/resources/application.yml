@@ -3,4 +3,4 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/devbootcamps
+      uri: mongodb+srv://dimo-user:Dimo-User-Password@cluster0-zgart.mongodb.net/movies?retryWrites=true&w=majority

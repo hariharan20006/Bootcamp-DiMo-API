@@ -1,14 +1,11 @@
 package com.bootcamp.dev.devcamp.model.movies;
 
-import lombok.AllArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Language;
 
 import java.util.List;
 
-@Document
+@Document(collection = "movies")
 public class Movie {
 
     @Field("budget")
@@ -17,9 +14,15 @@ public class Movie {
     @Field("genres")
     private List<Genre> genres;
 
-    @Id
+//    @Id
+//    @Field("_id")
+//    private String id;
+
     @Field("id")
-    private int id;
+    private String id;
+
+//    @Id
+//    private String _id;
 
     @Field("homepage")
     private String homepage;
@@ -43,7 +46,7 @@ public class Movie {
     private List<ProductionCompany> productionCompanies;
 
     @Field("production_countries")
-    private List<Country> productionCountries;
+    private List<ProductionCountry> productionCountries;
 
     @Field("release_date")
     private String releaseDate;
@@ -81,9 +84,9 @@ public class Movie {
         return genres;
     }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
 
     public String getHomepage() {
         return homepage;
@@ -113,7 +116,7 @@ public class Movie {
         return productionCompanies;
     }
 
-    public List<Country> getProductionCountries() {
+    public List<ProductionCountry> getProductionCountries() {
         return productionCountries;
     }
 

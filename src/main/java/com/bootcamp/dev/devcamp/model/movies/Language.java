@@ -1,8 +1,15 @@
 package com.bootcamp.dev.devcamp.model.movies;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-public class Country {
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Document
+public class Language {
     @Field("iso_639_1")
     private String iso6391;
 
