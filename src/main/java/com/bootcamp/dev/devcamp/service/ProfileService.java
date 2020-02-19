@@ -9,9 +9,13 @@ import com.bootcamp.dev.devcamp.profile.ProfileValidator;
 import com.bootcamp.dev.devcamp.repository.ProfileRepository;
 import com.bootcamp.dev.devcamp.response.ClientError;
 import com.bootcamp.dev.devcamp.response.SuccessResponse;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProfileService {
 
     @Autowired
