@@ -11,7 +11,7 @@ import java.util.List;
 public class Movie {
 
     @Field("budget")
-    private long budget;
+    private Long budget;
 
     @Field("genres")
     private List<Genre> genres;
@@ -38,7 +38,7 @@ public class Movie {
     private String overview;
 
     @Field("popularity")
-    private double popularity;
+    private Double popularity;
 
     @Field("production_companies")
     private List<ProductionCompany> productionCompanies;
@@ -50,10 +50,10 @@ public class Movie {
     private String releaseDate;
 
     @Field("revenue")
-    private long revenue;
+    private Long revenue;
 
     @Field("runtime")
-    private int runtime;
+    private Integer runtime;
 
     @Field("spoken_languages")
     private List<Language> languages;
@@ -68,10 +68,10 @@ public class Movie {
     private String title;
 
     @Field("vote_average")
-    private double voteAverage;
+    private Double voteAverage;
 
     @Field("vote_count")
-    private double voteCount;
+    private Double voteCount;
 
     public String getPosterUrl() {
         return posterUrl;

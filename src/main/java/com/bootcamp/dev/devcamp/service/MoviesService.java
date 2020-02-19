@@ -29,10 +29,21 @@ public class MoviesService {
 
         Query query = new Query();
 
+        int size = 4;
 
         for (String key : q.keySet()) {
+            if ("pageSize".equals(key)){
+                try {
+                    size = Integer.parseInt(q.get(key));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
             query.addCriteria(Criteria.where(key).regex(q.get(key), "i"));
         }
+
+        query.limit(size);
 
         return mongoTemplate.find(query, Movie.class);
     }
