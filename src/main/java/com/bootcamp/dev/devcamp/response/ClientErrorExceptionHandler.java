@@ -36,7 +36,7 @@ public class ClientErrorExceptionHandler extends AbstractErrorWebExceptionHandle
 
         if (error instanceof ClientError) {
             status = ((ClientError) error).getHttpStatus();
-            bodyInserter = BodyInserters.fromValue(((ClientError) error).getError());
+            bodyInserter = BodyInserters.fromValue(((ClientError) error).getErrorRepresentation());
         }
 
         return ServerResponse.status(status)

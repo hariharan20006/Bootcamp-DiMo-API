@@ -2,10 +2,10 @@ package com.bootcamp.dev.devcamp.controller;
 
 
 import com.bootcamp.dev.devcamp.model.link.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.ProfileDetailsResponse;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
 import com.bootcamp.dev.devcamp.response.ClientError;
-import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import com.bootcamp.dev.devcamp.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ProfileControllerTest {
@@ -98,5 +99,32 @@ public class ProfileControllerTest {
 
     }
 
+    @Test
+    public void getProfileWithUnAuthorizedToken() {
+        String token = "SOME_RANDOM_TOKEN";
+
+        Mockito.when(service.details(token)).thenReturn(Mono.error(ClientError.badCredentials()));
+
+        StepVerifier.create(profileController.details(token))
+                .consumeErrorWith(error -> {
+                    assertTrue(error instanceof ClientError);
+                })
+                .verify();
+    }
+
+    @Test
+    public void getProfileWithAuthorizedToken() {
+        String token = "SOME_RANDOM_TOKEN";
+
+        ProfileDetailsResponse expected = new ProfileDetailsResponse("John", "Doe", "john@gmail.com");
+
+        Mockito.when(service.details(token)).thenReturn(Mono.just(expected));
+
+        StepVerifier.create(profileController.details(token))
+                .assertNext(profileDetailsResponse -> {
+                    assertEquals(expected.getEmailId(), profileDetailsResponse.getEmailId());
+                })
+                .verifyComplete();
+    }
 
 }

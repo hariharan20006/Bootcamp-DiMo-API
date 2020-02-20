@@ -10,14 +10,15 @@ public class ClientError extends Throwable {
     private static final String INVALID_BODY_ERROR = "Invalid fields specified in Body";
     private static final String USER_ALREADY_EXISTS = "User Already Exists";
     private static final String BAD_CREDENTIALS = "Bad Credentials";
+    private static final String UNAUTHORIZED = "User not authorized";
 
     private final HttpStatus httpStatus;
-    private final ErrorRepresentation error;
+    private final ErrorRepresentation errorRepresentation;
 
 
     public ClientError(HttpStatus httpStatus, ErrorRepresentation errorRepresentation) {
         this.httpStatus = httpStatus;
-        this.error = errorRepresentation;
+        this.errorRepresentation = errorRepresentation;
     }
 
     public static ClientError invalidBody() {
@@ -30,6 +31,10 @@ public class ClientError extends Throwable {
 
     public static ClientError badCredentials() {
         return new ClientError(HttpStatus.BAD_REQUEST, new ErrorRepresentation(new Error(ErrorCode.INVALID_CREDENTIALS, BAD_CREDENTIALS)));
+    }
+
+    public static ClientError unauthorized() {
+        return new ClientError(HttpStatus.UNAUTHORIZED, new ErrorRepresentation(new Error(ErrorCode.INVALID_CREDENTIALS, BAD_CREDENTIALS)));
     }
 
     @Override

@@ -2,13 +2,13 @@ package com.bootcamp.dev.devcamp.service;
 
 
 import com.bootcamp.dev.devcamp.model.link.CreateProfile;
+import com.bootcamp.dev.devcamp.model.link.ProfileDetailsResponse;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
 import com.bootcamp.dev.devcamp.model.profile.Profile;
 import com.bootcamp.dev.devcamp.profile.ProfileValidator;
 import com.bootcamp.dev.devcamp.repository.ProfileRepository;
 import com.bootcamp.dev.devcamp.response.ClientError;
-import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +54,17 @@ public class ProfileService {
         } else {
             return Mono.error(ClientError.invalidBody());
         }
+    }
+
+    public Mono<ProfileDetailsResponse> details(String authorizationToken) {
+        if (null == authorizationToken || authorizationToken.isEmpty()) {
+            return Mono.error(ClientError.unauthorized());
+        }
+        return profileRepository.findByUuid(authorizationToken)
+                .map(ProfileDetailsResponse::from)
+                .onErrorMap(error -> {
+                    return ClientError.unauthorized();
+                })
+                .switchIfEmpty(Mono.error(ClientError.unauthorized()));
     }
 }
