@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.controller;
+package com.bootcamp.dev.devcamp.services;
 
 import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.model.profile.Profile;

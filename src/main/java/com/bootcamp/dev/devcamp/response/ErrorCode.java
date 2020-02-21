@@ -11,7 +11,9 @@ public enum ErrorCode {
     UNKNOWN(999),
     UNAUTHORIZED(1000),
     INVALID_REQUEST_BODY(1001),
-    INVALID_CREDENTIALS(1002);
+    INVALID_CREDENTIALS(1002),
+    FORBIDDEN(1003),
+    NOT_FOUND(1004);
 
 
     private int value;

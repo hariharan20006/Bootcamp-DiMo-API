@@ -6,6 +6,7 @@ import com.bootcamp.dev.devcamp.service.MoviesService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,18 +19,19 @@ import java.util.Optional;
 @CrossOrigin
 @AllArgsConstructor
 @RequestMapping("/api/movies")
+@PreAuthorize("hasRole('USER')")
 public class MoviesController {
     @Autowired
     private MoviesService moviesService;
 
     @GetMapping("")
-    public List<Movie> getMovies(@RequestParam Map<String, String> reqParam) {
+    public Mono<List<Movie>> getMovies(@RequestParam Map<String, String> reqParam) {
         return moviesService.getMovies(reqParam);
     }
 
-    @GetMapping("/{movieID}")
-    public Movie getMovieByID(@PathVariable Integer movieID ) {
-        return moviesService.getMovieByID(movieID);
+    @GetMapping("/{movieId}")
+    public Mono<Movie> getMovieById(@PathVariable Integer movieId ) {
+        return moviesService.getMovieById(movieId);
     }
 
 

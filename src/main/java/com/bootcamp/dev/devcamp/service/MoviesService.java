@@ -1,36 +1,36 @@
 package com.bootcamp.dev.devcamp.service;
 
 import com.bootcamp.dev.devcamp.model.movies.Movie;
-import com.bootcamp.dev.devcamp.repository.MoviesRepository;
+import com.bootcamp.dev.devcamp.response.ClientError;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class MoviesService {
 
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public List<Movie> getMovies(Map<String, String> q) {
+    public Mono<List<Movie>> getMovies(Map<String, String> q) {
 
         Query query = new Query();
 
         int size = 4;
 
         for (String key : q.keySet()) {
-            if ("pageSize".equals(key)){
+            if ("pageSize".equals(key)) {
                 try {
                     size = Integer.parseInt(q.get(key));
                 } catch (Exception e) {
@@ -43,15 +43,22 @@ public class MoviesService {
 
         query.limit(size);
 
-        return mongoTemplate.find(query, Movie.class);
+        List<Movie> movies = mongoTemplate.find(query, Movie.class);
+        if (movies.isEmpty()) {
+            return Mono.error(ClientError.notFound());
+        }
+        return Mono.just(movies);
     }
 
-    public Movie getMovieByID(Integer movieID) {
+    public Mono<Movie> getMovieById(Integer movieID) {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(movieID));
         Movie movie = mongoTemplate.findOne(query, Movie.class);
-        return  movie;
+        if (null == movie) {
+            return Mono.error(ClientError.notFound());
+        }
+        return Mono.just(movie);
 
     }
 }

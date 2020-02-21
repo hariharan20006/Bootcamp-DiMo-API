@@ -5,11 +5,11 @@ import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.model.link.ProfileDetailsResponse;
 import com.bootcamp.dev.devcamp.model.link.ProfileLogin;
 import com.bootcamp.dev.devcamp.model.link.Token;
-import com.bootcamp.dev.devcamp.response.SuccessResponse;
 import com.bootcamp.dev.devcamp.service.ProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -34,6 +34,7 @@ public class ProfileController {
 
 
     @GetMapping("/details")
+    @PreAuthorize("hasRole('USER')")
     public Mono<ProfileDetailsResponse> details(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken){
         return profileService.details(authorizationToken);
     }

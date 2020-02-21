@@ -11,6 +11,8 @@ public class ClientError extends Throwable {
     private static final String USER_ALREADY_EXISTS = "User Already Exists";
     private static final String BAD_CREDENTIALS = "Bad Credentials";
     private static final String UNAUTHORIZED = "User not authorized";
+    private static final String FORBIDDEN = "Forbidden";
+    private static final String ITEM_NOT_FOUND = "Item not found";
 
     private final HttpStatus httpStatus;
     private final ErrorRepresentation errorRepresentation;
@@ -34,7 +36,15 @@ public class ClientError extends Throwable {
     }
 
     public static ClientError unauthorized() {
-        return new ClientError(HttpStatus.UNAUTHORIZED, new ErrorRepresentation(new Error(ErrorCode.INVALID_CREDENTIALS, BAD_CREDENTIALS)));
+        return new ClientError(HttpStatus.UNAUTHORIZED, new ErrorRepresentation(new Error(ErrorCode.UNAUTHORIZED, UNAUTHORIZED)));
+    }
+
+    public static ClientError forbidden() {
+        return new ClientError(HttpStatus.FORBIDDEN, new ErrorRepresentation(new Error(ErrorCode.FORBIDDEN, FORBIDDEN)));
+    }
+
+    public static ClientError notFound() {
+        return new ClientError(HttpStatus.NOT_FOUND, new ErrorRepresentation(new Error(ErrorCode.NOT_FOUND, ITEM_NOT_FOUND)));
     }
 
     @Override

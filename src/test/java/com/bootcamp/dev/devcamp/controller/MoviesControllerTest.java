@@ -4,6 +4,8 @@ import com.bootcamp.dev.devcamp.model.movies.Movie;
 import com.bootcamp.dev.devcamp.service.MoviesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,18 +26,22 @@ public class MoviesControllerTest {
     }
 
     @Test
-    public void getMoviesWithTest() {
-        HashMap parameters = new HashMap();
-        List<Movie> response = new ArrayList<>();
+    public void testGetMoviesByCriterion() {
         Movie someMovie = new Movie();
         someMovie.setTitle("Some Movie");
-        response.add(someMovie);
-        when(moviesService.getMovies(parameters)).thenReturn(response);
+        List<Movie> expected = new ArrayList<>();
+        expected.add(someMovie);
+        HashMap<String,String> parameters = new HashMap<>();
+        when(moviesService.getMovies(parameters)).thenReturn(Mono.just(expected));
 
-        List<Movie> result = moviesController.getMovies(parameters);
+        Mono<List<Movie>> result = moviesController.getMovies(parameters);
 
         verify(moviesService, times(1)).getMovies(parameters);
-        assertEquals(response.get(0).getTitle(), result.get(0).getTitle());
+        StepVerifier.create(moviesController.getMovies(parameters)).assertNext(response ->{
+            assertEquals(expected.size(),response.size());
+        });
+
+
     }
 
 
@@ -43,11 +49,10 @@ public class MoviesControllerTest {
     public void getMovieByIdTest() {
         Movie expected = new Movie();
         expected.setId("1");
-        when(moviesService.getMovieByID(1)).thenReturn(expected);
+        when(moviesService.getMovieById(1)).thenReturn(Mono.just(expected));
 
-        Movie actual = moviesController.getMovieByID(1);
-
-        verify(moviesService, times(1)).getMovieByID(1);
-        assertEquals(expected.getId(), actual.getId());
+        verify(moviesService, times(1)).getMovieById(1);
+        StepVerifier.create(moviesController.getMovieById(1)).assertNext(response ->
+                assertEquals(expected.getId(),response.getId()));
     }
 }

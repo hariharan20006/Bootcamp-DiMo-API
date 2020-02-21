@@ -1,4 +1,4 @@
-package com.bootcamp.dev.devcamp.controller;
+package com.bootcamp.dev.devcamp;
 
 import com.bootcamp.dev.devcamp.model.link.CreateProfile;
 import com.bootcamp.dev.devcamp.profile.ProfileValidator;
@@ -17,7 +17,7 @@ class ProfileValidatorTest {
 
     @Test
     public void createProfileWithValidEmail() {
-        CreateProfile createProfileRequest = new CreateProfile("johnn@llll.com", "P@ssw0rd", "johnn", "clement");
+        CreateProfile createProfileRequest = new CreateProfile("test1@tw.com", "P@ssw0rd", "johnn", "clement");
         assertTrue(ProfileValidator.isCreateProfileValid(createProfileRequest));
     }
 
