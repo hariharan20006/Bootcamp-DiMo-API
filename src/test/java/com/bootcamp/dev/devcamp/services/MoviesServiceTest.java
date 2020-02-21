@@ -35,7 +35,7 @@ public class MoviesServiceTest {
         List<Movie> expected = new ArrayList<>();
         expected.add(someMovie);
 
-        when(mongoTemplate.find(any(), Movie.class)).thenReturn(expected);
+        when(mongoTemplate.find(any(), any(Class.class))).thenReturn(expected);
 
         HashMap<String, String> params = new HashMap<>();
 

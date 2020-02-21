@@ -51,7 +51,6 @@ public class MoviesControllerTest {
         expected.setId("1");
         when(moviesService.getMovieById(1)).thenReturn(Mono.just(expected));
 
-        verify(moviesService, times(1)).getMovieById(1);
         StepVerifier.create(moviesController.getMovieById(1)).assertNext(response ->
                 assertEquals(expected.getId(),response.getId()));
     }
